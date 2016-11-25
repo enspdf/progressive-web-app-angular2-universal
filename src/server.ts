@@ -11,6 +11,10 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 
+const mongoose = require('mongoose');
+
+mongoose.connect("mongodb://localhost/logros");
+
 // Angular 2
 import { enableProdMode } from '@angular/core';
 // Angular 2 Universal
@@ -51,10 +55,9 @@ app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
 /////////////////////////
 // ** Example API
 // Notice API should be in aseparate process
-import { serverApi, createTodoApi } from './backend/api';
+import { RouterApi } from './backend/api';
 // Our API for demos only
-app.get('/data.json', serverApi);
-app.use('/api', createTodoApi());
+app.use('/api', RouterApi);
 
 function ngApp(req, res) {
   res.render('index', {
